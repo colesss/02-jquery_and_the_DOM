@@ -5,12 +5,12 @@ var articles = [];
 function Article (rawDataObj) {
   // TODO: Use the JS object passed in to complete this constructor function:
   // Save ALL the properties of `rawDataObj` into `this`
-  this.title = title;
-  this.category = category;
-  this.author = author;
-  this.authorUrl = authorUrl;
-  this.publishedOn = publishedOn;
-  this.body = body;
+  this.title = rawDataObj.title;
+  this.category = rawDataObj.category;
+  this.author = rawDataObj.author;
+  this.authorUrl = rawDataObj.authorUrl;
+  this.publishedOn = rawDataObj.publishedOn;
+  this.body = rawDataObj.body;
 }
 
 Article.prototype.toHtml = function() {
@@ -34,7 +34,15 @@ Article.prototype.toHtml = function() {
     4. article body, and
     5. publication date. */
 
-    $newArticle.find('.byline a').html(this.author);
+  $newArticle.find('.byline a').html(this.author);
+
+  $newArticle.find('h1').text(this.title);
+
+  $newArticle.find('a').attr('href', this.authorUrl);
+
+  $newArticle.find('section').html(this.body);
+
+  $newArticle.find('article').attr('data-Category', this.category);
 
   // Display the date as a relative number of 'days ago'
   $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
